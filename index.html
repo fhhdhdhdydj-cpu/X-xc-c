@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auxiliar de Provas - BAC Exército Brasileiro</title>
+    <!-- Tailwind CSS para design moderno e responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .toast {
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen pb-12">
+
+    <!-- Toast Notification de Cópia -->
+    <div id="toast" class="fixed top-5 right-5 z-50 transform translate-y-[-150%] opacity-0 toast bg-emerald-600 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-emerald-400">
+        <i class="fa-solid fa-circle-check text-xl"></i>
+        <div>
+            <p class="font-bold text-sm">Copiado com sucesso!</p>
+            <p id="toast-text" class="text-xs text-emerald-100 font-mono"></p>
+        </div>
+    </div>
+
+    <!-- Cabeçalho -->
+    <header class="bg-slate-800/80 backdrop-blur border-b border-slate-700 sticky top-0 z-40">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-red-600 text-white p-2.5 rounded-xl shadow-lg shadow-red-900/40">
+                    <i class="fa-solid fa-skull text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-wide text-white flex items-center gap-2">
+                        BAC <span class="text-xs bg-red-600/30 text-red-400 border border-red-500/30 px-2 py-0.5 rounded-full font-mono">ROBLOX</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Auxiliar para Provas e Treinamentos</p>
+                </div>
+            </div>
+
+            <!-- Campo de Busca Rápidas -->
+            <div class="relative w-full sm:w-72">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input type="text" id="searchInput" onkeyup="filterCards()" placeholder="Buscar pergunta, nome..." 
+                       class="w-full bg-slate-900 text-sm border border-slate-700 rounded-lg pl-9 pr-4 py-2 focus:outline-none focus:border-red-500 text-slate-200 transition">
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 mt-6 space-y-6">
+
+        <!-- Informações Oficiais / Hierarquia -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Dono -->
+            <div class="bg-slate-800 border border-slate-700/80 rounded-xl p-4 flex justify-between items-center hover:border-slate-600 transition cursor-pointer group"
+                 onclick="copyText('MateusHgz', 'Dono')">
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Dono</p>
+                    <p class="text-lg font-bold text-white group-hover:text-red-400 transition">MateusHgz</p>
+                </div>
+                <button class="bg-slate-700/50 group-hover:bg-red-600 group-hover:text-white text-slate-300 p-2.5 rounded-lg transition">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+            </div>
+
+            <!-- Comandante -->
+            <div class="bg-slate-800 border border-slate-700/80 rounded-xl p-4 flex justify-between items-center hover:border-slate-600 transition cursor-pointer group"
+                 onclick="copyText('SasukeePro202', 'Comandante')">
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Comandante</p>
+                    <p class="text-lg font-bold text-white group-hover:text-red-400 transition">SasukeePro202</p>
+                </div>
+                <button class="bg-slate-700/50 group-hover:bg-red-600 group-hover:text-white text-slate-300 p-2.5 rounded-lg transition">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+            </div>
+
+            <!-- Subcomandante -->
+            <div class="bg-slate-800 border border-slate-700/80 rounded-xl p-4 flex justify-between items-center hover:border-slate-600 transition cursor-pointer group"
+                 onclick="copyText('DanielSxS2', 'Subcomandante')">
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Subcomandante</p>
+                    <p class="text-lg font-bold text-white group-hover:text-red-400 transition">DanielSxS2</p>
+                </div>
+                <button class="bg-slate-700/50 group-hover:bg-red-600 group-hover:text-white text-slate-300 p-2.5 rounded-lg transition">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Lema do BAC -->
+        <section class="bg-gradient-to-r from-red-950/40 to-slate-800 border border-red-900/50 rounded-xl p-5 hover:border-red-600/60 transition cursor-pointer group"
+                 onclick="copyText('O máximo de confusão, morte e destruição na retaguarda do inimigo.', 'Lema do BAC')">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-fire text-red-500 text-sm"></i>
+                        <span class="text-xs font-bold text-red-400 uppercase tracking-wider">Lema do BAC</span>
+                    </div>
+                    <p class="text-base sm:text-lg font-semibold text-slate-100 group-hover:text-white italic">
+                        "O máximo de confusão, morte e destruição na retaguarda do inimigo."
+                    </p>
+                </div>
+                <button class="bg-red-600/80 group-hover:bg-red-600 text-white px-4 py-2.5 rounded-lg flex items-center gap-2 text-sm font-semibold transition shrink-0">
+                    <i class="fa-regular fa-copy"></i>
+                    <span class="hidden sm:inline">Copiar</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Saudações -->
+        <section class="space-y-3">
+            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-hand-salute text-slate-500"></i> Saudações
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-slate-800 border border-slate-700/80 rounded-xl p-4 flex justify-between items-center hover:border-slate-600 transition cursor-pointer group"
+                     onclick="copyText('Saudações, senhor Comando.', 'Saudação Singular')">
+                    <span class="text-slate-200 font-medium group-hover:text-white">Saudações, senhor Comando.</span>
+                    <button class="bg-slate-700/50 group-hover:bg-red-600 group-hover:text-white text-slate-300 p-2 rounded-lg transition">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+                <div class="bg-slate-800 border border-slate-700/80 rounded-xl p-4 flex justify-between items-center hover:border-slate-600 transition cursor-pointer group"
+                     onclick="copyText('Saudações, senhores Comandos.', 'Saudação Plural')">
+                    <span class="text-slate-200 font-medium group-hover:text-white">Saudações, senhores Comandos.</span>
+                    <button class="bg-slate-700/50 group-hover:bg-red-600 group-hover:text-white text-slate-300 p-2 rounded-lg transition">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Perguntas da Prova -->
+        <section class="space-y-4">
+            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-file-pen text-slate-500"></i> Questões e Respostas Gramaticais
+            </h2>
+
+            <!-- Card 1 -->
+            <div class="qa-card bg-slate-800 border border-slate-700/80 rounded-xl p-5 hover:border-slate-600 transition space-y-3">
+                <div class="flex justify-between items-start gap-4">
+                    <span class="inline-block bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs px-2.5 py-1 rounded-md font-semibold">
+                        Pergunta 1
+                    </span>
+                    <span class="text-xs text-slate-400">Clique em "Copiar" na resposta</span>
+                </div>
+                <h3 class="text-base font-bold text-slate-100 leading-snug">
+                    Por que a disciplina é importante dentro do BAC?
+                </h3>
+                <div class="bg-slate-900/80 border border-slate-800 rounded-lg p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 group cursor-pointer hover:border-slate-700 transition"
+                     onclick="copyText('A disciplina é importante porque garante organização, respeito à hierarquia, cumprimento das ordens e eficiência nas atividades, permitindo que o BAC atue de forma coordenada e profissional.', 'Resposta Disciplina')">
+                    <p class="text-sm text-slate-300 leading-relaxed font-mono">
+                        A disciplina é importante porque garante organização, respeito à hierarquia, cumprimento das ordens e eficiência nas atividades, permitindo que o BAC atue de forma coordenada e profissional.
+                    </p>
+                    <button class="bg-slate-800 group-hover:bg-red-600 group-hover:text-white text-slate-300 px-4 py-2 rounded-lg flex items-center gap-2 text-xs font-semibold transition shrink-0 border border-slate-700 group-hover:border-red-500">
+                        <i class="fa-regular fa-copy"></i>
+                        <span>Copiar Resposta</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="qa-card bg-slate-800 border border-slate-700/80 rounded-xl p-5 hover:border-slate-600 transition space-y-3">
+                <div class="flex justify-between items-start gap-4">
+                    <span class="inline-block bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs px-2.5 py-1 rounded-md font-semibold">
+                        Pergunta 2
+                    </span>
+                    <span class="text-xs text-slate-400">Clique em "Copiar" na resposta</span>
+                </div>
+                <h3 class="text-base font-bold text-slate-100 leading-snug">
+                    Qual a importância do BAC no Exército Brasileiro?
+                </h3>
+                <div class="bg-slate-900/80 border border-slate-800 rounded-lg p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 group cursor-pointer hover:border-slate-700 transition"
+                     onclick="copyText('O BAC é essencial para a execução de operações de alto risco, atuando onde forças convencionais não conseguem operar com a mesma eficiência. Ele garante rapidez, precisão e surpresa em missões críticas, contribuindo para a segurança nacional e a defesa da soberania.', 'Resposta Importância BAC')">
+                    <p class="text-sm text-slate-300 leading-relaxed font-mono">
+                        O BAC é essencial para a execução de operações de alto risco, atuando onde forças convencionais não conseguem operar com a mesma eficiência. Ele garante rapidez, precisão e surpresa em missões críticas, contribuindo para a segurança nacional e a defesa da soberania.
+                    </p>
+                    <button class="bg-slate-800 group-hover:bg-red-600 group-hover:text-white text-slate-300 px-4 py-2 rounded-lg flex items-center gap-2 text-xs font-semibold transition shrink-0 border border-slate-700 group-hover:border-red-500">
+                        <i class="fa-regular fa-copy"></i>
+                        <span>Copiar Resposta</span>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Script para Copiar e Notificar -->
+    <script>
+        function copyText(text, label) {
+            // Método compatível com frames e iFrames
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast(label || 'Texto');
+            } catch (err) {
+                console.error('Erro ao copiar: ', err);
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        function showToast(label) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            
+            toastText.textContent = label;
+            
+            // Mostrar Toast
+            toast.classList.remove('translate-y-[-150%]', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            // Ocultar após 2.5s
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-[-150%]', 'opacity-0');
+            }, 2500);
+        }
+
+        // Filtro de busca simples
+        function filterCards() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.qa-card');
+
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
